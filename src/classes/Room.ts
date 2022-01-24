@@ -5,13 +5,16 @@ import Movement from "./Movement";
 export default class Room {
   code: string;
   firstPlayer: Player;
-  secondPlayer?: Player;
   movements: Movement[];
-  winner: Player;
+  secondPlayer?: Player;
+  winner?: Player;
 
   constructor({ code, firstPlayer }: { code: string; firstPlayer: Player }) {
     this.code = code;
     this.firstPlayer = firstPlayer;
+    this.movements = [];
+    this.winner = null;
+    this.secondPlayer = null;
   }
 
   static build({ firstPlayer }: { firstPlayer: Player }): Room {

@@ -83,7 +83,8 @@ app.get("/room/:roomCode/winner", (req, res) => {
     return res.send({ message: "No winner yet!" });
   }
 
-  return res.send({ message: `Winner: ${room.winner.username}` });
+  room.winner = winner;
+  return res.send({ message: `Winner: ${winner.username}` });
 });
 
 app.listen(PORT, () => {

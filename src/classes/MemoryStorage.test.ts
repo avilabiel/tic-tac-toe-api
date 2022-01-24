@@ -8,13 +8,10 @@ describe("MemoryStorage", () => {
   });
 
   it("stores a new value", () => {
-    const roomToStore: Room = {
+    const roomToStore = new Room({
       code: "XYZABCD29",
       firstPlayer: new Player({ username: "newbie" }),
-      secondPlayer: new Player({ username: "master" }),
-      movements: [],
-      winner: null,
-    };
+    });
     const memoryStorage = MemoryStorage.getOrBuild();
 
     const roomId = memoryStorage.storeRoom(roomToStore);
@@ -24,13 +21,10 @@ describe("MemoryStorage", () => {
   });
 
   it("finds a room by its code", () => {
-    const roomToStore: Room = {
+    const roomToStore = new Room({
       code: "XYZABCD29",
       firstPlayer: new Player({ username: "newbie" }),
-      secondPlayer: new Player({ username: "master" }),
-      movements: [],
-      winner: null,
-    };
+    });
     const memoryStorage = MemoryStorage.getOrBuild();
     memoryStorage.storeRoom(roomToStore);
 
@@ -40,13 +34,10 @@ describe("MemoryStorage", () => {
   });
 
   it("throws an error when room.url already exists on storage", () => {
-    const roomToStore: Room = {
+    const roomToStore = new Room({
       code: "XYZABCD29",
       firstPlayer: new Player({ username: "newbie" }),
-      secondPlayer: new Player({ username: "master" }),
-      movements: [],
-      winner: null,
-    };
+    });
     const memoryStorage = MemoryStorage.getOrBuild();
     memoryStorage.storeRoom(roomToStore);
 

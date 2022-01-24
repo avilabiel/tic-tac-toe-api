@@ -1,5 +1,3 @@
-type Movement = {
-  position: number;
-};
+type Movement = number;
 
 export default Movement;

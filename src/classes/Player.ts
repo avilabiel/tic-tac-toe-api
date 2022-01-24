@@ -9,7 +9,7 @@ export default class Player {
     this.movements = [];
   }
 
-  addMovement({ position }: Movement): void {
+  addMovement(position: Movement): void {
     this.movements.push(position);
   }
 }

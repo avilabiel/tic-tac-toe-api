@@ -64,7 +64,8 @@ app.post("/room/:roomCode/movement", (req, res) => {
       .send({ message: `Position #${position} already taken` });
   }
 
-  player.addMovement({ position });
+  player.addMovement(position);
+  room.movements.push(position);
   return res.send({ message: "Movement saved" });
 });
 
@@ -76,7 +77,7 @@ app.get("/room/:roomCode/winner", (req, res) => {
     return res.status(401).send({ message: "Room does not exist" });
   }
 
-  const winner = Room.getWinnerByRoomCode(roomCode);
+  const winner = room.getWinner();
 
   if (!winner) {
     return res.send({ message: "No winner yet!" });

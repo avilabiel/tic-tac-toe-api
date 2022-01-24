@@ -19,30 +19,51 @@ export default class Room {
     return new Room({ firstPlayer, code });
   }
 
-  static getWinnerByRoomCode(roomCode: string): Player | null {
-    const didUserWinVertical =
-      user.movements.some((movement) => [1, 4, 7].includes(movement)) ||
-      user.movements.some((movement) => [2, 5, 8].includes(movement)) ||
-      user.movements.some((movement) => [3, 6, 9].includes(movement));
-
-    const didUserWinHorizontal =
-      user.movements.some((movement) => [1, 2, 3].includes(movement)) ||
-      user.movements.some((movement) => [4, 5, 6].includes(movement)) ||
-      user.movements.some((movement) => [7, 8, 9].includes(movement));
-
-    const didUserWinDiagonal =
-      user.movements.some((movement) => [1, 5, 9].includes(movement)) ||
-      user.movements.some((movement) => [3, 5, 7].includes(movement));
-
-    const didUserWin =
-      didUserWinVertical || didUserWinHorizontal || didUserWinDiagonal;
-
-    if (didUserWin) {
-      return res.send({ message: "User won" });
-    }
-  }
-
   private static buildRoomCode(): string {
     return crypto.randomBytes(6).toString("hex");
+  }
+
+  getWinner(): Player | null {
+    const doesRoomHaveLessThanTwoPlayers =
+      !this.firstPlayer || !this.secondPlayer;
+
+    if (doesRoomHaveLessThanTwoPlayers) {
+      return null;
+    }
+
+    const isFirstPlayerWinner = this.isPlayerWinner(this.firstPlayer);
+
+    if (isFirstPlayerWinner) {
+      return this.firstPlayer;
+    }
+
+    const isSecondPlayerWinner = this.isPlayerWinner(this.secondPlayer);
+
+    if (isSecondPlayerWinner) {
+      return this.secondPlayer;
+    }
+
+    return null;
+  }
+
+  private isPlayerWinner(player: Player): boolean {
+    const didPlayerWinVertical =
+      player.movements.every((movement) => [1, 4, 7].includes(movement)) ||
+      player.movements.every((movement) => [2, 5, 8].includes(movement)) ||
+      player.movements.every((movement) => [3, 6, 9].includes(movement));
+
+    const didPlayerWinHorizontal =
+      player.movements.every((movement) => [1, 2, 3].includes(movement)) ||
+      player.movements.every((movement) => [4, 5, 6].includes(movement)) ||
+      player.movements.every((movement) => [7, 8, 9].includes(movement));
+
+    const didPlayerWinDiagonal =
+      player.movements.every((movement) => [1, 5, 9].includes(movement)) ||
+      player.movements.every((movement) => [3, 5, 7].includes(movement));
+
+    const didPlayerWin =
+      didPlayerWinVertical || didPlayerWinHorizontal || didPlayerWinDiagonal;
+
+    return didPlayerWin;
   }
 }

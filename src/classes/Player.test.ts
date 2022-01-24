@@ -14,8 +14,8 @@ describe("Player", () => {
     const username = "newbie1234";
     const player = new Player({ username });
 
-    const finalMovements = player.addMovement(1);
+    player.addMovement(1);
 
-    expect(finalMovements).toHaveLength(1);
+    expect(player.movements).toHaveLength(1);
   });
 });
